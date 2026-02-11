@@ -1,0 +1,338 @@
+[
+  {
+    "file": "packages/grafana-flamegraph/src/FlameGraphContainer.tsx",
+    "pattern": "God Component",
+    "details": "LOC=232, JSX=17, Hooks=7",
+    "severity": "Severe"
+  },
+  {
+    "file": "packages/grafana-prometheus/src/components/metrics-browser/useMetricsLabelsValues.ts",
+    "pattern": "God Component",
+    "details": "LOC=410, JSX=15, Hooks=7",
+    "severity": "Extreme"
+  },
+  {
+    "file": "packages/grafana-ui/src/components/Combobox/MultiCombobox.tsx",
+    "pattern": "God Component",
+    "details": "LOC=336, JSX=24, Hooks=11",
+    "severity": "Extreme"
+  },
+  {
+    "file": "packages/grafana-ui/src/components/DataSourceSettings/DataSourceHttpSettings.tsx",
+    "pattern": "God Component",
+    "details": "LOC=329, JSX=48, Hooks=5",
+    "severity": "Extreme"
+  },
+  {
+    "file": "packages/grafana-ui/src/components/PanelChrome/PanelChrome.tsx",
+    "pattern": "God Component",
+    "details": "LOC=306, JSX=30, Hooks=12",
+    "severity": "Extreme"
+  },
+  {
+    "file": "packages/grafana-ui/src/components/Select/SelectBase.tsx",
+    "pattern": "God Component",
+    "details": "LOC=320, JSX=15, Hooks=8",
+    "severity": "Severe"
+  },
+  {
+    "file": "packages/grafana-ui/src/components/Splitter/useSplitter.ts",
+    "pattern": "God Component",
+    "details": "LOC=298, JSX=16, Hooks=6",
+    "severity": "Moderate"
+  },
+  {
+    "file": "packages/grafana-ui/src/components/Table/TableNG/TableNG.tsx",
+    "pattern": "God Component",
+    "details": "LOC=778, JSX=36, Hooks=15",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/core/components/AccessControl/Permissions.tsx",
+    "pattern": "God Component",
+    "details": "LOC=201, JSX=16, Hooks=5",
+    "severity": "Moderate"
+  },
+  {
+    "file": "public/app/core/components/NestedFolderPicker/NestedFolderPicker.tsx",
+    "pattern": "God Component",
+    "details": "LOC=309, JSX=21, Hooks=15",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/core/components/RolePicker/RolePickerMenu.tsx",
+    "pattern": "God Component",
+    "details": "LOC=223, JSX=16, Hooks=6",
+    "severity": "Moderate"
+  },
+  {
+    "file": "public/app/features/admin/ldap/LdapDrawer.tsx",
+    "pattern": "God Component",
+    "details": "LOC=403, JSX=68, Hooks=6",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/contact-points/ContactPointHeader.tsx",
+    "pattern": "God Component",
+    "details": "LOC=229, JSX=26, Hooks=5",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/notification-policies/EditNotificationPolicyForm.tsx",
+    "pattern": "God Component",
+    "details": "LOC=309, JSX=47, Hooks=6",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/notification-policies/NotificationPoliciesList.tsx",
+    "pattern": "God Component",
+    "details": "LOC=234, JSX=13, Hooks=20",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/notification-policies/Policy.tsx",
+    "pattern": "God Component",
+    "details": "LOC=316, JSX=40, Hooks=5",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/receivers/AlertInstanceModalSelector.tsx",
+    "pattern": "God Component",
+    "details": "LOC=277, JSX=37, Hooks=5",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/receivers/TemplateForm.tsx",
+    "pattern": "God Component",
+    "details": "LOC=290, JSX=48, Hooks=11",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/receivers/form/ChannelSubForm.tsx",
+    "pattern": "God Component",
+    "details": "LOC=284, JSX=32, Hooks=5",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/rule-editor/AnnotationsStep.tsx",
+    "pattern": "God Component",
+    "details": "LOC=223, JSX=27, Hooks=7",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/rule-editor/DashboardPicker.tsx",
+    "pattern": "God Component",
+    "details": "LOC=251, JSX=36, Hooks=7",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/rule-editor/GrafanaEvaluationBehavior.tsx",
+    "pattern": "God Component",
+    "details": "LOC=328, JSX=48, Hooks=7",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/rule-editor/alert-rule-form/AlertRuleForm.tsx",
+    "pattern": "God Component",
+    "details": "LOC=230, JSX=27, Hooks=10",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/rule-editor/query-and-alert-condition/QueryAndExpressionsStep.tsx",
+    "pattern": "God Component",
+    "details": "LOC=592, JSX=46, Hooks=11",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/alerting/unified/components/rules/Filter/RulesFilter.v1.tsx",
+    "pattern": "God Component",
+    "details": "LOC=280, JSX=64, Hooks=7",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/connections/tabs/ConnectData/ConnectData.tsx",
+    "pattern": "God Component",
+    "details": "LOC=208, JSX=26, Hooks=9",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/dashboard/components/TransformationsEditor/TransformationOperationRow.tsx",
+    "pattern": "God Component",
+    "details": "LOC=224, JSX=16, Hooks=5",
+    "severity": "Moderate"
+  },
+  {
+    "file": "public/app/features/dashboard-scene/scene/NavToolbarActions.tsx",
+    "pattern": "God Component",
+    "details": "LOC=525, JSX=54, Hooks=5",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/datasources/components/picker/DataSourceModal.tsx",
+    "pattern": "God Component",
+    "details": "LOC=207, JSX=19, Hooks=7",
+    "severity": "Severe"
+  },
+  {
+    "file": "public/app/features/datasources/components/picker/DataSourcePicker.tsx",
+    "pattern": "God Component",
+    "details": "LOC=251, JSX=16, Hooks=13",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/explore/CorrelationHelper.tsx",
+    "pattern": "God Component",
+    "details": "LOC=234, JSX=32, Hooks=8",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/explore/CorrelationTransformationAddModal.tsx",
+    "pattern": "God Component",
+    "details": "LOC=223, JSX=27, Hooks=5",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/explore/ExploreToolbar.tsx",
+    "pattern": "God Component",
+    "details": "LOC=293, JSX=22, Hooks=5",
+    "severity": "Severe"
+  },
+  {
+    "file": "public/app/features/explore/Logs/Logs.tsx",
+    "pattern": "God Component",
+    "details": "LOC=1036, JSX=75, Hooks=9",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/explore/Logs/LogsTableWrap.tsx",
+    "pattern": "God Component",
+    "details": "LOC=457, JSX=16, Hooks=5",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/expressions/components/SqlExpr.tsx",
+    "pattern": "God Component",
+    "details": "LOC=269, JSX=25, Hooks=9",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/logs/components/LogRow.tsx",
+    "pattern": "God Component",
+    "details": "LOC=262, JSX=18, Hooks=11",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/logs/components/log-context/LogRowContextModal.tsx",
+    "pattern": "God Component",
+    "details": "LOC=469, JSX=50, Hooks=8",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/logs/components/panel/LogLineDetailsFields.tsx",
+    "pattern": "God Component",
+    "details": "LOC=255, JSX=21, Hooks=6",
+    "severity": "Severe"
+  },
+  {
+    "file": "public/app/features/logs/components/panel/LogLineDetailsHeader.tsx",
+    "pattern": "God Component",
+    "details": "LOC=234, JSX=19, Hooks=7",
+    "severity": "Severe"
+  },
+  {
+    "file": "public/app/features/logs/components/panel/LogList.tsx",
+    "pattern": "God Component",
+    "details": "LOC=305, JSX=19, Hooks=13",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/logs/components/panel/LogListControls.tsx",
+    "pattern": "God Component",
+    "details": "LOC=527, JSX=37, Hooks=6",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/migrate-to-cloud/onprem/Page.tsx",
+    "pattern": "God Component",
+    "details": "LOC=317, JSX=16, Hooks=12",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/provisioning/Config/ConfigForm.tsx",
+    "pattern": "God Component",
+    "details": "LOC=342, JSX=41, Hooks=8",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/provisioning/components/Dashboards/MoveProvisionedDashboardForm.tsx",
+    "pattern": "God Component",
+    "details": "LOC=290, JSX=24, Hooks=10",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/features/provisioning/components/Dashboards/SaveProvisionedDashboardForm.tsx",
+    "pattern": "God Component",
+    "details": "LOC=255, JSX=22, Hooks=7",
+    "severity": "Severe"
+  },
+  {
+    "file": "public/app/plugins/datasource/azuremonitor/components/ResourcePicker/ResourcePicker.tsx",
+    "pattern": "God Component",
+    "details": "LOC=524, JSX=77, Hooks=5",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/plugins/datasource/cloud-monitoring/components/VisualMetricQueryEditor.tsx",
+    "pattern": "God Component",
+    "details": "LOC=281, JSX=34, Hooks=6",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/plugins/datasource/cloudwatch/components/VariableQueryEditor/VariableQueryEditor.tsx",
+    "pattern": "God Component",
+    "details": "LOC=249, JSX=25, Hooks=7",
+    "severity": "Severe"
+  },
+  {
+    "file": "public/app/plugins/datasource/influxdb/components/editor/config-v2/AuthSettings.tsx",
+    "pattern": "God Component",
+    "details": "LOC=255, JSX=43, Hooks=6",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/plugins/datasource/loki/components/LokiContextUi.tsx",
+    "pattern": "God Component",
+    "details": "LOC=332, JSX=24, Hooks=7",
+    "severity": "Severe"
+  },
+  {
+    "file": "public/app/plugins/panel/canvas/components/connections/ConnectionSVG.tsx",
+    "pattern": "God Component",
+    "details": "LOC=541, JSX=28, Hooks=6",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/plugins/panel/canvas/components/connections/ConnectionSVG2.tsx",
+    "pattern": "God Component",
+    "details": "LOC=555, JSX=26, Hooks=6",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/plugins/panel/heatmap/HeatmapPanel.tsx",
+    "pattern": "God Component",
+    "details": "LOC=215, JSX=14, Hooks=6",
+    "severity": "Moderate"
+  },
+  {
+    "file": "public/app/plugins/panel/logs/LogsPanel.tsx",
+    "pattern": "God Component",
+    "details": "LOC=605, JSX=22, Hooks=10",
+    "severity": "Extreme"
+  },
+  {
+    "file": "public/app/plugins/panel/nodeGraph/NodeGraph.tsx",
+    "pattern": "God Component",
+    "details": "LOC=247, JSX=30, Hooks=17",
+    "severity": "Extreme"
+  }
+]
