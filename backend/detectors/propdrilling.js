@@ -2,6 +2,14 @@ import fs from "fs";
 import path from "path";
 import ts from "typescript";
 
+// System props to ignore
+const SYSTEM_PROPS = new Set([
+  "className", "style", "key", "ref", "id", "children",
+  "onClick", "onChange", "onSubmit", "onBlur", "onFocus",
+  "type", "value", "placeholder", "disabled", "required",
+  "href", "src", "alt", "title", "role", "aria-label"
+]);
+
 export async function runPropDrillingDetector(basePath) {
   const results = [];
 
@@ -10,8 +18,11 @@ export async function runPropDrillingDetector(basePath) {
     const files = fs.readdirSync(dirPath);
     for (const file of files) {
       const fullPath = path.join(dirPath, file);
-      if (fs.statSync(fullPath).isDirectory()) getAllFiles(fullPath, arr);
-      else if (/\.(jsx?|tsx?)$/.test(file)) arr.push(fullPath);
+      if (fs.statSync(fullPath).isDirectory() && !file.includes("node_modules")) {
+        getAllFiles(fullPath, arr);
+      } else if (/\.(jsx?|tsx?)$/.test(file)) {
+        arr.push(fullPath);
+      }
     }
     return arr;
   }
@@ -23,52 +34,152 @@ export async function runPropDrillingDetector(basePath) {
     return end.line - start.line + 1;
   }
 
+  // --- Extract props from function parameters ---
+  function extractPropsFromParams(node) {
+    const props = new Set();
+    
+    if (!node.parameters || node.parameters.length === 0) return props;
+    
+    const firstParam = node.parameters[0];
+    
+    // Handle destructured props: function Component({ prop1, prop2 })
+    if (firstParam.name && ts.isObjectBindingPattern(firstParam.name)) {
+      firstParam.name.elements.forEach(element => {
+        if (ts.isBindingElement(element) && ts.isIdentifier(element.name)) {
+          props.add(element.name.text);
+        }
+      });
+    }
+    // Handle props object: function Component(props)
+    else if (firstParam.name && ts.isIdentifier(firstParam.name)) {
+      // We'll track props.x usage in the component
+      return new Set(["props"]);
+    }
+    
+    return props;
+  }
+
+  // --- Find JSX attributes being passed down ---
+  function findPassedProps(node, receivedProps) {
+    const passedProps = {};
+    
+    function visit(n) {
+      // Look for JSX elements with attributes
+      if (ts.isJsxElement(n) || ts.isJsxSelfClosingElement(n)) {
+        const attributes = ts.isJsxElement(n) 
+          ? n.openingElement.attributes 
+          : n.attributes;
+        
+        if (ts.isJsxAttributes(attributes)) {
+          attributes.properties.forEach(prop => {
+            if (ts.isJsxAttribute(prop) && ts.isIdentifier(prop.name)) {
+              const attrName = prop.name.text;
+              
+              // Skip system props
+              if (SYSTEM_PROPS.has(attrName)) return;
+              
+              // Check if the value references a received prop
+              if (prop.initializer && ts.isJsxExpression(prop.initializer)) {
+                const expr = prop.initializer.expression;
+                
+                // Direct prop pass: <Child prop={prop} />
+                if (expr && ts.isIdentifier(expr)) {
+                  const valueName = expr.text;
+                  if (receivedProps.has(valueName)) {
+                    passedProps[valueName] = (passedProps[valueName] || 0) + 1;
+                  }
+                }
+                // Props object access: <Child prop={props.prop} />
+                else if (expr && ts.isPropertyAccessExpression(expr)) {
+                  if (ts.isIdentifier(expr.expression) && expr.expression.text === "props") {
+                    if (ts.isIdentifier(expr.name)) {
+                      const propName = expr.name.text;
+                      passedProps[propName] = (passedProps[propName] || 0) + 1;
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+      
+      ts.forEachChild(n, visit);
+    }
+    
+    visit(node);
+    return passedProps;
+  }
+
+  // --- Check if node is a React component ---
+  function isReactComponent(node, sourceFile) {
+    const text = node.getText(sourceFile);
+    const hasJSX = /<[A-Z]/.test(text) || /<[a-z]+[\s>]/.test(text);
+    return hasJSX;
+  }
+
   // --- Analyze each file for prop drilling ---
   function analyzeFile(filePath) {
-    const code = fs.readFileSync(filePath, "utf8");
-    const sourceFile = ts.createSourceFile(
-      filePath,
-      code,
-      ts.ScriptTarget.Latest,
-      true,
-      ts.ScriptKind.TSX
-    );
+    try {
+      const code = fs.readFileSync(filePath, "utf8");
+      const sourceFile = ts.createSourceFile(
+        filePath,
+        code,
+        ts.ScriptTarget.Latest,
+        true,
+        ts.ScriptKind.TSX
+      );
 
-    // --- Metrics ---
-    const totalLOC = code.split("\n").length;
-    const jsxCount = (code.match(/<\w+/g) || []).length;
-    const hookCount = (code.match(/use(State|Effect|Memo|Callback|Ref)/g) || []).length;
+      const totalLOC = code.split("\n").length;
 
-    // --- Prop drilling detection ---
-    // Match propName=... but ignore built-in attributes
-    const propMatches = [...code.matchAll(/\b(\w+)\s*=\s*{?[^}]*}?/g)];
-    const propCounts = {};
+      function visit(node) {
+        let componentNode = null;
+        let componentName = "Anonymous";
 
-    for (const match of propMatches) {
-      const prop = match[1];
-      if (!prop) continue;
+        // Check function declarations
+        if (ts.isFunctionDeclaration(node)) {
+          componentNode = node;
+          if (node.name) componentName = node.name.text;
+        }
+        // Check arrow functions in variable declarations
+        else if (ts.isVariableStatement(node)) {
+          const decl = node.declarationList.declarations[0];
+          if (decl && decl.initializer && 
+              (ts.isArrowFunction(decl.initializer) || ts.isFunctionExpression(decl.initializer))) {
+            componentNode = decl.initializer;
+            if (ts.isIdentifier(decl.name)) {
+              componentName = decl.name.text;
+            }
+          }
+        }
 
-      // Ignore React system props
-      if (["className", "style", "key", "ref", "id", "onClick", "children"].includes(prop))
-        continue;
+        if (componentNode && isReactComponent(componentNode, sourceFile)) {
+          const receivedProps = extractPropsFromParams(componentNode);
+          const passedProps = findPassedProps(componentNode, receivedProps);
+          
+          // Flag props that are passed down multiple times
+          for (const [prop, count] of Object.entries(passedProps)) {
+            if (count >= 3) {
+              let severity = "Moderate";
+              if (count >= 5) severity = "Severe";
+              if (count >= 7) severity = "Extreme";
 
-      propCounts[prop] = (propCounts[prop] || 0) + 1;
-    }
+              results.push({
+                file: path.relative(basePath, filePath),
+                pattern: "Prop Drilling",
+                details: `${componentName}: prop '${prop}' passed ${count}× through component tree`,
+                severity,
+              });
+            }
+          }
+        }
 
-    // --- Flag props passed multiple times (deep drilling) ---
-    for (const [prop, count] of Object.entries(propCounts)) {
-      if (count >= 3) {
-        let severity = "Moderate";
-        if (count >= 5) severity = "Severe";
-        if (count > 7) severity = "Extreme";
-
-        results.push({
-          file: path.relative(basePath, filePath),
-          pattern: "Prop Drilling",
-          details: `${prop} passed ${count}× | LOC=${totalLOC}, JSX=${jsxCount}, Hooks=${hookCount}`,
-          severity,
-        });
+        ts.forEachChild(node, visit);
       }
+
+      visit(sourceFile);
+    } catch (err) {
+      console.error(`❌ Error analyzing ${filePath}:`, err.message);
     }
   }
 
